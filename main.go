@@ -25,7 +25,7 @@ func main() {
 	for {
 		empty, key := platform.GetKey()
 		if !empty {
-			if strings.Contains(shortcut, current+key) {
+			if strings.Contains(shortcut, current+key) && len(shortcut) >= len(current+key) {
 				current += key
 				if shortcut == current {
 					current = ""
@@ -43,10 +43,10 @@ func main() {
 
 func replace(with string, length int) {
 	for i := 0; i < length; i++ {
+		time.Sleep(delayKeyfetchMS * time.Millisecond * 3)
 		robotgo.KeyTap("left")
-		time.Sleep(delayKeyfetchMS * time.Millisecond * 5)
+		time.Sleep(delayKeyfetchMS * time.Millisecond * 3)
 		robotgo.KeyTap("delete")
-		time.Sleep(delayKeyfetchMS * time.Millisecond * 5)
 	}
 	content, _ := clipboard.ReadAll()
 	robotgo.PasteStr(with)
