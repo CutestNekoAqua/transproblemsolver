@@ -77,5 +77,8 @@ func replace(with string, length int) {
 	content, _ := clipboard.ReadAll()
 	robotgo.PasteStr(with)
 	time.Sleep(delayKeyfetchMS * time.Millisecond)
-	clipboard.WriteAll(content)
+	err := clipboard.WriteAll(content)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
